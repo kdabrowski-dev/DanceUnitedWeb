@@ -1,58 +1,27 @@
-import { prisma } from 'db'
 import { Calendar, Ticket } from 'lucide-react'
+import type { MetaArgs } from 'react-router'
 import { ShinyText } from '../components/ui'
-import type { Route } from './+types/pricing'
+import { pricingPackages } from '../content/pricing'
 
-export async function loader() {
-  // Fetch all active packages
-  const packages = await prisma.package.findMany({
-    where: {
-      isActive: true,
-    },
-    include: {
-      classLinks: {
-        include: {
-          classTemplate: true,
-        },
-      },
-    },
-    orderBy: { price: 'asc' },
-  })
-
-  // Filter out restricted packages (where any linked class has whitelist enabled)
-  const publicPackages = packages.filter((pkg) => {
-    // If no links, it's universal so it's public
-    if (pkg.classLinks.length === 0) return true
-    // Check if any linked class is restricted
-    const isRestricted = pkg.classLinks.some((link) => link.classTemplate.isWhitelistEnabled)
-    return !isRestricted
-  })
-
-  // Group by category
-  // We'll just do the simple serialization and grouping
-  const serializedPackages = publicPackages.map((p) => ({
-    ...p,
-    price: p.price.toString(),
-  }))
-
-  const grouped: Record<string, typeof serializedPackages> = {}
-  for (const pkg of serializedPackages) {
-    const category = pkg.category
-    if (!grouped[category]) {
-      grouped[category] = []
-    }
-    grouped[category].push(pkg)
-  }
-
-  return { groupedPackages: grouped }
+export function meta(_args: MetaArgs) {
+  return [
+    { title: 'Pricing - Dance United' },
+    { name: 'description', content: 'Class packages and pricing at Dance United Gdańsk.' },
+  ]
 }
 
-export default function Pricing({ loaderData }: Route.ComponentProps) {
-  const { groupedPackages } = loaderData
-
+export default function Pricing() {
   const categoryOrder = ['UNIVERSAL', 'ADULTS', 'YOUTH', 'KIDS', 'SPORT']
-  const presentCategories = Object.keys(groupedPackages)
 
+  const grouped: Record<string, typeof pricingPackages> = {}
+  for (const pkg of pricingPackages) {
+    if (!grouped[pkg.category]) {
+      grouped[pkg.category] = []
+    }
+    grouped[pkg.category].push(pkg)
+  }
+
+  const presentCategories = Object.keys(grouped)
   const sortedCategories = presentCategories.sort((a, b) => {
     const idxA = categoryOrder.indexOf(a)
     const idxB = categoryOrder.indexOf(b)
@@ -73,7 +42,7 @@ export default function Pricing({ loaderData }: Route.ComponentProps) {
 
         <div className="mx-auto max-w-7xl space-y-20">
           {sortedCategories.map((category) => {
-            const categoryPackages = groupedPackages[category]
+            const categoryPackages = grouped[category]
             if (!categoryPackages || categoryPackages.length === 0) return null
 
             return (

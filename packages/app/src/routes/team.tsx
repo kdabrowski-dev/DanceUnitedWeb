@@ -1,43 +1,14 @@
+import type { MetaArgs } from 'react-router'
 import { ShinyText } from '../components/ui'
+import { trainers } from '../content/team'
+import { asset } from '../lib/asset'
 
-const trainers = [
-  {
-    name: 'Anna Kowalska',
-    role: 'Ballroom Dance',
-    image: '/trainers/trainer_1.webp',
-    description: 'Multiple Polish Champion with 10 years of teaching experience.',
-  },
-  {
-    name: 'Janusz Wiśniewski',
-    role: 'Ballroom Dance',
-    image: '/trainers/trainer_ballroom_male.webp',
-    description: 'Expert in standard ballroom dances, international judge.',
-  },
-  {
-    name: 'Maria Wiśniewska',
-    role: 'Contemporary Dance',
-    image: '/trainers/trainer_3.webp',
-    description: 'Specialist in technique and artistic expression in dance.',
-  },
-  {
-    name: 'Krzysztof Zieliński',
-    role: 'Salsa & Bachata',
-    image: '/trainers/trainer_4.webp',
-    description: 'Feel the rhythm of Latin dances under the guidance of an experienced dancer.',
-  },
-  {
-    name: 'Katarzyna Lewandowska',
-    role: 'Ballet for Kids',
-    image: '/trainers/trainer_5.webp',
-    description: 'Patient and smiling instructor for the youngest talents.',
-  },
-  {
-    name: 'Tomasz Dąbrowski',
-    role: 'Breakdance',
-    image: '/trainers/trainer_6.webp',
-    description: 'Master of acrobatics and style, teaches you to control your body.',
-  },
-]
+export function meta(_args: MetaArgs) {
+  return [
+    { title: 'Our Team - Dance United' },
+    { name: 'description', content: 'Meet the trainers and instructors at Dance United Gdańsk.' },
+  ]
+}
 
 export default function Team() {
   return (
@@ -60,7 +31,7 @@ export default function Team() {
           >
             <div className="mb-4 aspect-[3/4] overflow-hidden rounded-lg">
               <img
-                src={trainer.image}
+                src={asset(trainer.image)}
                 alt={trainer.name}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />

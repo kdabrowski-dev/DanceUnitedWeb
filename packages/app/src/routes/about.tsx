@@ -1,4 +1,13 @@
+import type { MetaArgs } from 'react-router'
 import { ShinyText } from '../components/ui'
+import { asset } from '../lib/asset'
+
+export function meta(_args: MetaArgs) {
+  return [
+    { title: 'About Us - Dance United' },
+    { name: 'description', content: 'The story, mission, and founder behind Dance United Gdańsk.' },
+  ]
+}
 
 export default function About() {
   return (
@@ -43,7 +52,7 @@ export default function About() {
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row">
           <div className="w-full md:w-1/2">
             <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-xl border border-amber-900/30 shadow-2xl">
-              <img src="/img/founder.webp" alt="Wiktoria - Founder" className="h-full w-full object-cover" />
+              <img src={asset('/img/founder.webp')} alt="Wiktoria - Founder" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 to-transparent" />
               <div className="absolute bottom-6 left-6 text-left">
                 <ShinyText as="h3" variant="title" className="text-3xl">

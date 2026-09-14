@@ -1,7 +1,6 @@
-import { useLoaderData } from 'react-router'
 import { Carousel, GoldDust, MetallicLink, ShinyText } from '../components/ui'
 import { useTranslation } from '../contexts/LanguageContext'
-import { getCurrentUser } from '../lib/auth.server'
+import { asset } from '../lib/asset'
 import type { Route } from './+types/_index'
 
 // biome-ignore lint/correctness/noEmptyPattern: this is boilerplate code!
@@ -13,16 +12,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export const links: Route.LinksFunction = () => [
-  { rel: 'preload', href: '/img/hero-1.webp', as: 'image' }, // Preload LCP candidate
+  { rel: 'preload', href: asset('/img/hero-1.webp'), as: 'image' }, // Preload LCP candidate
 ]
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const user = await getCurrentUser(request)
-  return { user }
-}
-
 export default function HomePage() {
-  const { user } = useLoaderData<typeof loader>()
   const { t } = useTranslation()
 
   return (
@@ -33,7 +26,7 @@ export default function HomePage() {
         {/* Background Carousel */}
         <div className="absolute inset-0 z-0">
           <Carousel
-            images={['/img/hero-1.webp', '/img/hero-2.webp', '/img/hero-3.webp']}
+            images={[asset('/img/hero-1.webp'), asset('/img/hero-2.webp'), asset('/img/hero-3.webp')]}
             className="h-full w-full opacity-60"
             autoPlayInterval={5000}
           />
@@ -56,33 +49,21 @@ export default function HomePage() {
         </div>
         {/* CTA Buttons */}
         <div className="relative z-20 w-full max-w-4xl px-4 text-center">
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            {user ? (
-              <MetallicLink
-                to={user.role === 'MANAGER' ? '/admin/dashboard' : '/schedule'}
-                variant="primary"
-                className="w-full max-w-[280px] rounded-lg border-2 px-8 py-3 text-lg sm:w-auto"
-              >
-                {t('HOME_CTA_DASHBOARD')}
-              </MetallicLink>
-            ) : (
-              <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                <MetallicLink
-                  to="/login"
-                  variant="primary"
-                  className="w-full max-w-[280px] rounded-lg border-2 px-8 py-3 text-lg sm:w-auto"
-                >
-                  {t('HOME_CTA_LOGIN')}
-                </MetallicLink>
-                <MetallicLink
-                  to="/register"
-                  variant="primary"
-                  className="w-full max-w-[280px] rounded-lg border-2 px-8 py-3 text-lg sm:w-auto"
-                >
-                  {t('HOME_CTA_REGISTER')}
-                </MetallicLink>
-              </div>
-            )}
+          <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <MetallicLink
+              to="/schedule"
+              variant="primary"
+              className="w-full max-w-[280px] rounded-lg border-2 px-8 py-3 text-lg sm:w-auto"
+            >
+              {t('HOME_CTA_SCHEDULE')}
+            </MetallicLink>
+            <MetallicLink
+              to="/contact"
+              variant="primary"
+              className="w-full max-w-[280px] rounded-lg border-2 px-8 py-3 text-lg sm:w-auto"
+            >
+              {t('HOME_CTA_CONTACT')}
+            </MetallicLink>
           </div>
         </div>
       </section>

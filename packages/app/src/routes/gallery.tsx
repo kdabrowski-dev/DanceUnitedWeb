@@ -1,8 +1,17 @@
 import fs from 'fs'
 import path from 'path'
 import { useState } from 'react'
+import type { MetaArgs } from 'react-router'
 import { useLoaderData } from 'react-router'
 import { ShinyText } from '../components/ui'
+import { asset } from '../lib/asset'
+
+export function meta(_args: MetaArgs) {
+  return [
+    { title: 'Gallery - Dance United' },
+    { name: 'description', content: 'Photos from classes, camps, tournaments, and the studio.' },
+  ]
+}
 
 const categories = [
   { id: 'camps', label: 'Camps & Courses' },
@@ -20,7 +29,7 @@ export const loader = async () => {
         .readdirSync(dir)
         .filter((file) => /\.webp$/i.test(file))
         .map((file) => ({
-          src: `/resources/gallery/${category}/${file}`,
+          src: asset(`/gallery/${category}/${file}`),
           alt: `${category} photo`,
         }))
     } catch (error) {

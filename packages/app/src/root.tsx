@@ -1,26 +1,15 @@
-import { ChevronDown, LayoutDashboard, LogOut, Settings, User as UserIcon } from 'lucide-react'
-import {
-  Form,
-  Link,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  isRouteErrorResponse,
-  useLoaderData,
-  useLocation,
-} from 'react-router'
+import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse } from 'react-router'
 
 import type { Route } from './+types/root'
 import { Footer } from './components/Footer'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
-import { MetallicLink, MobileNav, ShinyText } from './components/ui'
+import { MobileNav, ShinyText } from './components/ui'
 import { LanguageProvider, useTranslation } from './contexts/LanguageContext'
-import { getCurrentUser } from './lib/auth.server'
+import { asset } from './lib/asset'
 import './app.css'
 
 export const links: Route.LinksFunction = () => [
+  { rel: 'icon', href: asset('/favicon.ico') },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
     rel: 'preconnect',
@@ -51,183 +40,92 @@ export function Layout({ children }: { children: React.ReactNode }) {
   )
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const user = await getCurrentUser(request)
-  return { user }
-}
-
 export default function App() {
-  const { user } = useLoaderData<typeof loader>()
   return (
     <LanguageProvider>
-      <AppContent user={user} />
+      <AppContent />
     </LanguageProvider>
   )
 }
 
-function AppContent({ user }: { user: any }) {
+function AppContent() {
   const { t } = useTranslation()
-  // useLocation logic to handle global overflow
-  const location = useLocation()
-
-  // Dashboard routes (Admin, Trainer, Dancer) will handle their own scrolling
-  // This logic toggles the overflow of the main content area
-  // Checks for /admin, /trainer, /dancer, and /dashboard
-  const isDashboard =
-    location.pathname.startsWith('/admin') ||
-    location.pathname.startsWith('/trainer') ||
-    location.pathname.startsWith('/dancer') ||
-    location.pathname.startsWith('/dashboard') ||
-    location.pathname.startsWith('/trainer-dashboard') // specific check from other branch logic if needed
 
   return (
-    <div className={`flex flex-col bg-gray-950 ${isDashboard ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
-      {!isDashboard && (
-        <header className="relative z-50 flex-none border-amber-900/20 border-b bg-gray-950">
-          <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
-            <div className="flex min-w-0 items-center gap-3 xl:gap-6">
-              <Link to="/" className="flex shrink-0 items-center gap-2 xl:gap-3">
-                <img src="/logos/logo-transparent.webp" alt="Dance United" className="h-11 w-auto xl:h-14" />
-                <ShinyText as="span" variant="title" className="shrink-0 whitespace-nowrap text-lg xl:text-2xl">
-                  {t('BRAND_NAME')}
+    <div className="flex min-h-screen flex-col bg-gray-950">
+      <header className="relative z-50 flex-none border-amber-900/20 border-b bg-gray-950">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex min-w-0 items-center gap-3 xl:gap-6">
+            <Link to="/" className="flex shrink-0 items-center gap-2 xl:gap-3">
+              <img src={asset('/logos/logo-transparent.webp')} alt="Dance United" className="h-11 w-auto xl:h-14" />
+              <ShinyText as="span" variant="title" className="shrink-0 whitespace-nowrap text-lg xl:text-2xl">
+                {t('BRAND_NAME')}
+              </ShinyText>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden shrink-0 items-center gap-3 xl:flex 2xl:gap-5">
+              <Link to="/about" className="shrink-0">
+                <ShinyText
+                  variant="body"
+                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
+                >
+                  {t('NAV_ABOUT_US')}
                 </ShinyText>
               </Link>
-
-              {/* Desktop Navigation */}
-              <div className="hidden shrink-0 items-center gap-3 xl:flex 2xl:gap-5">
-                <Link to="/about" className="shrink-0">
-                  <ShinyText
-                    variant="body"
-                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                  >
-                    {t('NAV_ABOUT_US')}
-                  </ShinyText>
-                </Link>
-                <Link to="/team" className="shrink-0">
-                  <ShinyText
-                    variant="body"
-                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                  >
-                    {t('NAV_TEAM')}
-                  </ShinyText>
-                </Link>
-                <Link to="/pricing" className="shrink-0">
-                  <ShinyText
-                    variant="body"
-                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                  >
-                    {t('NAV_PRICING')}
-                  </ShinyText>
-                </Link>
-                <Link to="/schedule" className="shrink-0">
-                  <ShinyText
-                    variant="body"
-                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                  >
-                    {t('NAV_SCHEDULE')}
-                  </ShinyText>
-                </Link>
-                <Link to="/contact" className="shrink-0">
-                  <ShinyText
-                    variant="body"
-                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                  >
-                    {t('NAV_CONTACT')}
-                  </ShinyText>
-                </Link>
-                <Link to="/gallery" className="shrink-0">
-                  <ShinyText
-                    variant="body"
-                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                  >
-                    {t('NAV_GALLERY')}
-                  </ShinyText>
-                </Link>
-              </div>
+              <Link to="/team" className="shrink-0">
+                <ShinyText
+                  variant="body"
+                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
+                >
+                  {t('NAV_TEAM')}
+                </ShinyText>
+              </Link>
+              <Link to="/pricing" className="shrink-0">
+                <ShinyText
+                  variant="body"
+                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
+                >
+                  {t('NAV_PRICING')}
+                </ShinyText>
+              </Link>
+              <Link to="/schedule" className="shrink-0">
+                <ShinyText
+                  variant="body"
+                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
+                >
+                  {t('NAV_SCHEDULE')}
+                </ShinyText>
+              </Link>
+              <Link to="/contact" className="shrink-0">
+                <ShinyText
+                  variant="body"
+                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
+                >
+                  {t('NAV_CONTACT')}
+                </ShinyText>
+              </Link>
+              <Link to="/gallery" className="shrink-0">
+                <ShinyText
+                  variant="body"
+                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
+                >
+                  {t('NAV_GALLERY')}
+                </ShinyText>
+              </Link>
             </div>
-            <div className="flex shrink-0 items-center gap-2 xl:gap-3">
-              <LanguageSwitcher />
-
-              {user ? (
-                <details className="group relative">
-                  <summary className="flex cursor-pointer list-none items-center gap-2 transition-colors hover:text-amber-400 [&::webkit-details-marker]:hidden">
-                    <UserIcon className="h-5 w-5 text-amber-500" />
-                    <ShinyText variant="body" className="text-sm">
-                      {user.firstName}
-                    </ShinyText>
-                    <ChevronDown className="h-4 w-4 text-amber-500/70 transition-transform group-open:rotate-180" />
-                  </summary>
-
-                  <div className="absolute top-full right-0 z-50 mt-2 flex w-56 flex-col gap-1 rounded-xl border border-amber-900/30 bg-gray-950 py-2 shadow-2xl backdrop-blur-md">
-                    {/* Dashboard Link */}
-                    {(user.role === 'DANCER' || user.role === 'TRAINER' || user.role === 'MANAGER') && (
-                      <Link
-                        to={
-                          user.role === 'MANAGER'
-                            ? '/admin/dashboard'
-                            : user.role === 'TRAINER'
-                              ? '/trainer/dashboard' // Updated to standard path
-                              : '/dancer/dashboard' // Updated to standard path
-                        }
-                        className="flex items-center gap-3 px-4 py-2 text-amber-50/80 text-sm transition-colors hover:bg-amber-900/20 hover:text-amber-100"
-                      >
-                        <LayoutDashboard className="h-4 w-4" />
-                        {t('NAV_DASHBOARD')}
-                      </Link>
-                    )}
-
-                    {/* Settings / Profile */}
-                    <Link
-                      to="/profile"
-                      className="flex items-center gap-3 px-4 py-2 text-amber-50/80 text-sm transition-colors hover:bg-amber-900/20 hover:text-amber-100"
-                    >
-                      <Settings className="h-4 w-4" />
-                      {t('NAV_SETTINGS')}
-                    </Link>
-
-                    <div className="my-1 border-amber-900/20 border-t" />
-
-                    {/* Logout */}
-                    <Form method="post" action="/api/auth/logout" className="w-full">
-                      <button
-                        type="submit"
-                        className="flex w-full items-center gap-3 px-4 py-2 text-left text-red-300 text-sm transition-colors hover:bg-red-900/20 hover:text-red-200"
-                      >
-                        <LogOut className="h-4 w-4" />
-                        {t('NAV_LOGOUT')}
-                      </button>
-                    </Form>
-                  </div>
-
-                  {/* Backdrop to close on click outside */}
-                  <div
-                    className="fixed inset-0 z-40 hidden group-open:block"
-                    onClick={(e) => {
-                      const details = e.currentTarget.parentElement as HTMLDetailsElement
-                      details.removeAttribute('open')
-                    }}
-                  />
-                </details>
-              ) : (
-                <div className="hidden gap-2 xl:flex">
-                  <MetallicLink to="/login" className="whitespace-nowrap rounded-md border-2 px-3 py-2 text-sm">
-                    {t('NAV_LOGIN')}
-                  </MetallicLink>
-                  <MetallicLink to="/register" className="whitespace-nowrap rounded-md border-2 px-3 py-2 text-sm">
-                    {t('NAV_REGISTER')}
-                  </MetallicLink>
-                </div>
-              )}
-              <MobileNav user={user} />
-            </div>
-          </nav>
-        </header>
-      )}
-      <main className={`flex-1 bg-gray-950 ${isDashboard ? 'relative overflow-hidden' : 'overflow-y-auto'}`}>
+          </div>
+          <div className="flex shrink-0 items-center gap-2 xl:gap-3">
+            <LanguageSwitcher />
+            <MobileNav />
+          </div>
+        </nav>
+      </header>
+      <main className="flex-1 bg-gray-950">
         <Outlet />
       </main>
 
-      {!isDashboard && <Footer />}
+      <Footer />
     </div>
   )
 }

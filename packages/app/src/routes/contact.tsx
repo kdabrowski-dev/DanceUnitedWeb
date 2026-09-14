@@ -1,4 +1,12 @@
+import type { MetaArgs } from 'react-router'
 import { ShinyText } from '../components/ui'
+
+export function meta(_args: MetaArgs) {
+  return [
+    { title: 'Contact - Dance United' },
+    { name: 'description', content: 'Get in touch with Dance United Gdańsk - phone, email, and location.' },
+  ]
+}
 
 export default function Contact() {
   return (

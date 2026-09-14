@@ -6,11 +6,9 @@
 - **All text should be shiny/metallic by default** - Use `ShinyText` component for all text content
 - **Titles**: Use `ShinyText` with `variant="title"` (automatically lowercases text)
 - **Body text**: Use `ShinyText` with `variant="body"`
-- **Form labels**: Automatically use `ShinyText` via `FormField` component
-- **Error messages**: Automatically use `ShinyText` via `FormError` component
 
 ### Buttons
-- **All buttons should use `MetallicButton` or `MetallicLink` components**
+- **All buttons/links should use `MetallicLink` (there's no server-rendered form on this static site, so no submit buttons)**
 - **Default style**: Black fill, gold metallic text, gold shiny border
 - Add `border-2` class to enable the gold border effect
 
@@ -27,7 +25,7 @@
 
 When creating new components:
 1. **Always use `ShinyText` for text content** - don't use plain `<p>`, `<span>`, `<h1>`, etc.
-2. **Use `MetallicButton` or `MetallicLink` for interactive elements**
+2. **Use `MetallicLink` for interactive elements**
 3. **Apply `border-2` to buttons for the gold border effect**
 4. **Follow the gold-on-black color scheme**
 
@@ -42,10 +40,10 @@ When creating new components:
 <h1>Page Title</h1>
 <p>Body text content</p>
 
-// ✅ Good - Using MetallicButton with border
-<MetallicButton className="border-2">Click me</MetallicButton>
+// ✅ Good - Using MetallicLink with border
+<MetallicLink to="/contact" className="border-2">Contact us</MetallicLink>
 
-// ❌ Bad - Plain button
-<button>Click me</button>
+// ❌ Bad - Plain button/link
+<a href="/contact">Contact us</a>
 ```
 
