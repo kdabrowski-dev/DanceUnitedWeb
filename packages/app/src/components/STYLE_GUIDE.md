@@ -21,7 +21,7 @@
 
 ### Fonts
 - **Titles**: `Cinzel` (serif)
-- **Body**: `EB Garamond` (serif)
+- **Body**: `Lora` (serif)
 
 ## Component Guidelines
 

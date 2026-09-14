@@ -13,7 +13,7 @@ export const ROUTES = {
 
 export const FONTS = {
   TITLE: '"Cinzel", serif',
-  BODY: '"EB Garamond", Georgia, serif',
+  BODY: '"Lora", Georgia, serif',
 } as const
 
 export const COLORS = {

@@ -8,6 +8,12 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
+    watch: {
+      // Docker Desktop on Windows doesn't forward inotify events across the bind mount,
+      // so without polling, file edits on the host never trigger HMR inside the container.
+      usePolling: true,
+      interval: 300,
+    },
   },
   ssr: {
     external: ['bcryptjs', '@prisma/client'],

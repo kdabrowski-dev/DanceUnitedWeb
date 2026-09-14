@@ -13,6 +13,13 @@ export function meta(_args: Route.MetaArgs) {
   return [{ title: 'Schedule - Dance United' }, { name: 'description', content: 'View and sign up for classes' }]
 }
 
+export const links: Route.LinksFunction = () => [
+  { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.css' },
+  { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.css' },
+  { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.15/index.global.min.css' },
+  { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.15/index.global.min.css' },
+]
+
 export async function loader({ request }: Route.LoaderArgs) {
   const user = await getCurrentUser(request)
   if (!user || user.role !== 'DANCER') return redirect('/')
@@ -334,7 +341,16 @@ export default function DancerSchedulePage() {
         )}
 
         <div className="rounded-lg border border-amber-900/20 bg-gray-900/30 p-1">
-          <DashboardCalendar events={filteredEvents} onEventClick={handleEventClickCallback} height="auto" />
+          <DashboardCalendar
+            events={filteredEvents}
+            onEventClick={handleEventClickCallback}
+            height="auto"
+            legend={[
+              { label: 'You are attending', color: '#059669' },
+              { label: 'Hall 1', color: '#d97706' },
+              { label: 'Hall 2', color: '#78350f' },
+            ]}
+          />
         </div>
       </div>
 

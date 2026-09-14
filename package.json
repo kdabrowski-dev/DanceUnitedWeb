@@ -15,5 +15,14 @@
 		"baseline-browser-mapping": "^2.9.14",
 		"deepl-node": "^1.24.0",
 		"turbo": "^2.6.1"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@biomejs/biome",
+			"@prisma/engines",
+			"esbuild",
+			"prisma",
+			"sharp"
+		]
 	}
 }

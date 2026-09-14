@@ -4,8 +4,13 @@ import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin from '@fullcalendar/list'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ShinyText } from '../ui'
+
+export interface CalendarLegendItem {
+  label: string
+  color: string
+}
 
 interface DashboardCalendarProps {
   events?: EventInput[]
@@ -15,6 +20,11 @@ interface DashboardCalendarProps {
   readOnly?: boolean
   editable?: boolean
   height?: string | number | 'auto'
+  /** Explains what the event colors mean. Rendered as a small key above the calendar. */
+  legend?: CalendarLegendItem[]
+  /** Restricts the time-grid (week/day) view to these hours so classes aren't lost in empty scroll space. */
+  slotMinTime?: string
+  slotMaxTime?: string
 }
 
 // Full config including listWeek
@@ -24,10 +34,11 @@ const desktopHeaderConfig = {
   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
 } as const
 
+// Mobile still needs a way to switch views - a compact month/agenda toggle beats being locked to one view.
 const mobileHeaderConfig = {
-  left: 'prev,next',
+  left: 'prev,next today',
   center: 'title',
-  right: '',
+  right: 'dayGridMonth,listWeek',
 } as const
 
 const buttonTextConfig = {
@@ -62,6 +73,9 @@ function DashboardCalendarComponent({
   readOnly = false,
   editable = false,
   height = 600,
+  legend,
+  slotMinTime = '07:00:00',
+  slotMaxTime = '23:00:00',
 }: DashboardCalendarProps) {
   const [isClient, setIsClient] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -79,22 +93,6 @@ function DashboardCalendarComponent({
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Memoize default events
-  const defaultEvents = useMemo<EventInput[]>(() => {
-    const today = new Date()
-    const todayStr = today.toISOString().split('T')[0]
-    return [
-      {
-        id: '1',
-        title: 'Ballet Basics',
-        start: `${todayStr}T10:00:00`,
-        end: `${todayStr}T11:00:00`,
-        backgroundColor: '#ffd700',
-        borderColor: '#ffd700',
-      },
-    ]
-  }, [])
-
   const handleDateSelect = useCallback(
     (selectInfo: DateSelectArg) => {
       if (readOnly) return
@@ -110,10 +108,6 @@ function DashboardCalendarComponent({
     [onEventClick]
   )
 
-  const calendarEvents = useMemo(() => {
-    return events.length > 0 ? events : defaultEvents
-  }, [events, defaultEvents])
-
   if (!isClient) {
     return (
       <div className="dashboard-calendar" style={{ minHeight: '600px' }}>
@@ -126,12 +120,22 @@ function DashboardCalendarComponent({
 
   return (
     <div className="dashboard-calendar overflow-hidden rounded-xl border border-amber-900/20 bg-gray-900/30 p-2 sm:p-4">
+      {legend && legend.length > 0 && (
+        <div className="calendar-legend" role="list" aria-label="Legend">
+          {legend.map((item) => (
+            <span className="calendar-legend-item" role="listitem" key={item.label}>
+              <span className="calendar-legend-dot" style={{ backgroundColor: item.color }} />
+              {item.label}
+            </span>
+          ))}
+        </div>
+      )}
       <FullCalendar
         ref={calendarRef}
         plugins={calendarPlugins}
         initialView={isMobile ? 'listWeek' : 'dayGridMonth'}
         headerToolbar={isMobile ? mobileHeaderConfig : desktopHeaderConfig}
-        events={calendarEvents}
+        events={events}
         selectable={!readOnly}
         selectMirror={!readOnly}
         dayMaxEvents={true}
@@ -145,6 +149,10 @@ function DashboardCalendarComponent({
         aspectRatio={isMobile ? 0.7 : 1.8}
         handleWindowResize={true}
         stickyHeaderDates={true}
+        nowIndicator={true}
+        slotMinTime={slotMinTime}
+        slotMaxTime={slotMaxTime}
+        noEventsText="No classes scheduled"
         eventClassNames="calendar-event"
         dayHeaderClassNames="calendar-day-header"
         buttonText={buttonTextConfig}

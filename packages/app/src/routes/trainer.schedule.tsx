@@ -21,6 +21,7 @@ export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.css' },
   { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.css' },
   { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.15/index.global.min.css' },
+  { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.15/index.global.min.css' },
 ]
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -428,6 +429,10 @@ export default function TrainerSchedulePage() {
             onDateSelect={handleDateSelect}
             onEventClick={handleEventClick}
             height="auto"
+            legend={[
+              { label: 'Hall 1', color: '#d97706' },
+              { label: 'Hall 2', color: '#78350f' },
+            ]}
           />
         </div>
       </div>

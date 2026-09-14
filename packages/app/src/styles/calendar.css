@@ -9,7 +9,7 @@
 
 .dashboard-calendar .fc {
   color: #ffd700;
-  font-family: "EB Garamond", Georgia, serif;
+  font-family: "Lora", Georgia, serif;
   width: 100%;
   max-width: 100%;
 
@@ -82,7 +82,7 @@
   background-color: rgb(3, 7, 18) !important;
   border: 1px solid rgba(255, 215, 0, 0.3) !important;
   color: #ffd700 !important;
-  font-family: "EB Garamond", Georgia, serif;
+  font-family: "Lora", Georgia, serif;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   transition: all 0.2s;
@@ -185,11 +185,8 @@
 .dashboard-calendar .fc-col-header-cell-cushion {
   position: relative;
   z-index: 1;
-  /* Simpler Gold Gradient Text */
-  background: linear-gradient(135deg, #ffd700 0%, #ffc125 50%, #daa520 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  /* Solid, static gold - legible at a glance, no animation competing for attention */
+  color: #ffd700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -199,69 +196,32 @@
 /* Removed the ::before white shine overlay */
 
 .dashboard-calendar .fc-daygrid-day-number {
-  color: transparent;
+  /* Solid, static gold - a whole grid of animated day numbers was hard to scan at a glance */
+  color: #ffd700;
   padding: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
   position: relative;
   z-index: 1;
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #fff9e6 3%,
-    #ffed4e 8%,
-    #ffd700 15%,
-    #ffc125 22%,
-    #daa520 28%,
-    #b8860b 35%,
-    #daa520 42%,
-    #ffc125 50%,
-    #ffd700 58%,
-    #ffc125 65%,
-    #daa520 72%,
-    #ffd700 78%,
-    #ffed4e 85%,
-    #fff9e6 92%,
-    #ffffff 97%,
-    #ffd700 100%
-  );
-  background-size: 500% 500%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: metallic-shine 15s ease-in-out infinite;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 1px rgba(255, 255, 255, 0.3);
-}
-
-.dashboard-calendar .fc-daygrid-day-number::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 25%,
-    rgba(255, 255, 255, 0.3) 35%,
-    rgba(255, 255, 255, 0.8) 45%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 0.8) 55%,
-    rgba(255, 255, 255, 0.3) 65%,
-    transparent 75%,
-    transparent 100%
-  );
-  background-size: 500% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: highlight-sweep 30s ease-in-out infinite;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .dashboard-calendar .fc-daygrid-day-top {
   flex-direction: row;
+}
+
+/* Today gets a clear, unambiguous marker instead of relying on background tint alone */
+.dashboard-calendar .fc-day-today .fc-daygrid-day-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  margin: 0.15rem;
+  border-radius: 9999px;
+  background-color: #ffd700;
+  color: rgb(3, 7, 18);
+  font-weight: 700;
+  text-shadow: none;
 }
 
 .dashboard-calendar .calendar-event {
@@ -285,67 +245,22 @@
   border-color: rgba(180, 83, 9, 0.1);
 }
 
-.dashboard-calendar .fc-timegrid-axis {
-  color: transparent;
+.dashboard-calendar .fc-timegrid-axis-cushion,
+.dashboard-calendar .fc-timegrid-slot-label-cushion {
+  color: rgba(255, 215, 0, 0.75);
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-.dashboard-calendar .fc-timegrid-axis-cushion {
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #fff9e6 3%,
-    #ffed4e 8%,
-    #ffd700 15%,
-    #ffc125 22%,
-    #daa520 28%,
-    #b8860b 35%,
-    #daa520 42%,
-    #ffc125 50%,
-    #ffd700 58%,
-    #ffc125 65%,
-    #daa520 72%,
-    #ffd700 78%,
-    #ffed4e 85%,
-    #fff9e6 92%,
-    #ffffff 97%,
-    #ffd700 100%
-  );
-  background-size: 500% 500%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: metallic-shine 15s ease-in-out infinite;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 1px rgba(255, 255, 255, 0.3);
+/* "Now" line - makes it obvious at a glance where the current moment sits in day/week view */
+.dashboard-calendar .fc-timegrid-now-indicator-line {
+  border-color: #ef4444;
+  border-width: 2px;
 }
 
-.dashboard-calendar .fc-timegrid-axis-cushion::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 25%,
-    rgba(255, 255, 255, 0.3) 35%,
-    rgba(255, 255, 255, 0.8) 45%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 0.8) 55%,
-    rgba(255, 255, 255, 0.3) 65%,
-    transparent 75%,
-    transparent 100%
-  );
-  background-size: 500% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: highlight-sweep 30s ease-in-out infinite;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  z-index: 2;
+.dashboard-calendar .fc-timegrid-now-indicator-arrow {
+  border-color: transparent #ef4444;
+  border-width: 5px;
 }
 
 .dashboard-calendar .fc-toolbar-title {
@@ -525,7 +440,39 @@
   font-size: 0.85rem;
 }
 
+/* Color key - explains what event colors mean, since the calendar has no other way to convey it */
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  align-items: center;
+  padding: 0 0.5rem 0.75rem;
+  font-family: "Lora", Georgia, serif;
+}
+
+.calendar-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 215, 0, 0.85);
+  font-size: 0.8rem;
+}
+
+.calendar-legend-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
 @media (max-width: 767px) {
+  .calendar-legend {
+    gap: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+    justify-content: center;
+  }
+
   .dashboard-calendar {
     padding: 0.5rem;
   }

@@ -29,7 +29,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap',
+    href: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap',
   },
 ]
 
@@ -84,68 +84,68 @@ function AppContent({ user }: { user: any }) {
     <div className={`flex flex-col bg-gray-950 ${isDashboard ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       {!isDashboard && (
         <header className="relative z-50 flex-none border-amber-900/20 border-b bg-gray-950">
-          <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-8">
-              <Link to="/" className="flex items-center gap-3">
-                <img src="/logos/logo-transparent.webp" alt="Dance United" className="h-16 w-auto" />
-                <ShinyText as="span" variant="title" className="text-3xl">
+          <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
+            <div className="flex min-w-0 items-center gap-3 xl:gap-6">
+              <Link to="/" className="flex shrink-0 items-center gap-2 xl:gap-3">
+                <img src="/logos/logo-transparent.webp" alt="Dance United" className="h-11 w-auto xl:h-14" />
+                <ShinyText as="span" variant="title" className="shrink-0 whitespace-nowrap text-lg xl:text-2xl">
                   {t('BRAND_NAME')}
                 </ShinyText>
               </Link>
 
               {/* Desktop Navigation */}
-              <div className="hidden items-center gap-6 md:flex">
-                <Link to="/about">
+              <div className="hidden shrink-0 items-center gap-3 xl:flex 2xl:gap-5">
+                <Link to="/about" className="shrink-0">
                   <ShinyText
                     variant="body"
-                    className="text-xl uppercase tracking-wider transition-colors hover:text-gold"
+                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
                   >
                     {t('NAV_ABOUT_US')}
                   </ShinyText>
                 </Link>
-                <Link to="/team">
+                <Link to="/team" className="shrink-0">
                   <ShinyText
                     variant="body"
-                    className="text-xl uppercase tracking-wider transition-colors hover:text-gold"
+                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
                   >
                     {t('NAV_TEAM')}
                   </ShinyText>
                 </Link>
-                <Link to="/pricing">
+                <Link to="/pricing" className="shrink-0">
                   <ShinyText
                     variant="body"
-                    className="text-xl uppercase tracking-wider transition-colors hover:text-gold"
+                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
                   >
                     {t('NAV_PRICING')}
                   </ShinyText>
                 </Link>
-                <Link to="/schedule">
+                <Link to="/schedule" className="shrink-0">
                   <ShinyText
                     variant="body"
-                    className="text-xl uppercase tracking-wider transition-colors hover:text-gold"
+                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
                   >
                     {t('NAV_SCHEDULE')}
                   </ShinyText>
                 </Link>
-                <Link to="/contact">
+                <Link to="/contact" className="shrink-0">
                   <ShinyText
                     variant="body"
-                    className="text-xl uppercase tracking-wider transition-colors hover:text-gold"
+                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
                   >
                     {t('NAV_CONTACT')}
                   </ShinyText>
                 </Link>
-                <Link to="/gallery">
+                <Link to="/gallery" className="shrink-0">
                   <ShinyText
                     variant="body"
-                    className="text-xl uppercase tracking-wider transition-colors hover:text-gold"
+                    className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
                   >
                     {t('NAV_GALLERY')}
                   </ShinyText>
                 </Link>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex shrink-0 items-center gap-2 xl:gap-3">
               <LanguageSwitcher />
 
               {user ? (
@@ -209,11 +209,11 @@ function AppContent({ user }: { user: any }) {
                   />
                 </details>
               ) : (
-                <div className="hidden gap-4 md:flex">
-                  <MetallicLink to="/login" className="rounded-md border-2 px-4 py-2 text-sm">
+                <div className="hidden gap-2 xl:flex">
+                  <MetallicLink to="/login" className="whitespace-nowrap rounded-md border-2 px-3 py-2 text-sm">
                     {t('NAV_LOGIN')}
                   </MetallicLink>
-                  <MetallicLink to="/register" className="rounded-md border-2 px-4 py-2 text-sm">
+                  <MetallicLink to="/register" className="whitespace-nowrap rounded-md border-2 px-3 py-2 text-sm">
                     {t('NAV_REGISTER')}
                   </MetallicLink>
                 </div>

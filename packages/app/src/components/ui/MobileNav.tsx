@@ -1,6 +1,7 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { useTranslation } from '../../contexts/LanguageContext'
 import { MetallicLink, ShinyText } from './index'
 
 interface MobileNavProps {
@@ -12,20 +13,21 @@ interface MobileNavProps {
 
 export function MobileNav({ user }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const { t } = useTranslation()
 
   const toggle = () => setIsOpen(!isOpen)
 
   const menuItems = [
-    { label: 'About Us', href: '/about' },
-    { label: 'Team', href: '/team' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Schedule', href: '/schedule' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Gallery', href: '/gallery' },
+    { label: t('NAV_ABOUT_US'), href: '/about' },
+    { label: t('NAV_TEAM'), href: '/team' },
+    { label: t('NAV_PRICING'), href: '/pricing' },
+    { label: t('NAV_SCHEDULE'), href: '/schedule' },
+    { label: t('NAV_CONTACT'), href: '/contact' },
+    { label: t('NAV_GALLERY'), href: '/gallery' },
   ]
 
   return (
-    <div className="md:hidden">
+    <div className="xl:hidden">
       <button
         type="button"
         onClick={toggle}
@@ -72,21 +74,21 @@ export function MobileNav({ user }: MobileNavProps) {
                   className="w-full rounded-md border-2 py-3 text-center text-lg"
                   onClick={toggle}
                 >
-                  Login
+                  {t('NAV_LOGIN')}
                 </MetallicLink>
                 <MetallicLink
                   to="/register"
                   className="w-full rounded-md border-2 py-3 text-center text-lg"
                   onClick={toggle}
                 >
-                  Register
+                  {t('NAV_REGISTER')}
                 </MetallicLink>
               </div>
             ) : (
               <div className="flex flex-col gap-4">
                 <Link to="/profile" onClick={toggle}>
                   <ShinyText variant="body" className="text-sm">
-                    Logged in as {user.firstName}
+                    {user.firstName}
                   </ShinyText>
                 </Link>
               </div>

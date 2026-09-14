@@ -3,6 +3,21 @@
   position: relative;
   display: inline-block;
   letter-spacing: 0.01em;
+}
+
+/* Heading/paragraph tags must stay block-level, or consecutive ShinyText elements (e.g. a title
+   followed by a subtitle) run into each other on the same line instead of stacking. */
+h1.shiny-text,
+h2.shiny-text,
+h3.shiny-text,
+h4.shiny-text,
+h5.shiny-text,
+h6.shiny-text,
+p.shiny-text {
+  display: block;
+}
+
+.shiny-text {
   font-family: "Cinzel", serif;
   font-weight: 400;
   text-transform: none;
@@ -164,7 +179,7 @@
   position: relative;
   display: inline-block;
   letter-spacing: 0.01em;
-  font-family: "EB Garamond", Georgia, serif;
+  font-family: "Lora", Georgia, serif;
   font-weight: 600;
   overflow: hidden;
   color: #1a0f00;
