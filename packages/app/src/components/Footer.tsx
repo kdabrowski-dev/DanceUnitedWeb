@@ -5,38 +5,39 @@ import { asset } from '../lib/asset'
 export function Footer() {
   const { t } = useTranslation()
   return (
-    <footer className="flex-none border-amber-900/20 border-t bg-gray-950 py-12">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 text-gray-400 text-sm md:grid-cols-4">
-        <div className="space-y-4">
+    <footer className="flex-none border-amber-900/20 border-t bg-gray-950 py-10">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 text-gray-400 text-xs md:grid-cols-4">
+        <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <img src={asset('/logos/logo-transparent.webp')} alt="Dance United" className="h-8 w-auto opacity-80" />
-            <span className="font-bold font-serif text-amber-500 uppercase tracking-wider">{t('BRAND_NAME')}</span>
+            <img src={asset('/logos/logo-transparent.webp')} alt="Dance United" className="h-7 w-auto opacity-90" />
+            <span className="font-bold font-title text-gold uppercase tracking-wider">{t('BRAND_NAME')}</span>
           </div>
-          <p className="opacity-70">{t('FOOTER_DESCRIPTION')}</p>
+          <p className="leading-relaxed opacity-70">{t('FOOTER_DESCRIPTION')}</p>
         </div>
 
         <div>
-          <h3 className="mb-4 font-bold text-amber-500 uppercase tracking-wider">{t('FOOTER_COMPANY')}</h3>
-          <ul className="space-y-2">
+          <h3 className="mb-2 font-semibold text-gold uppercase tracking-wider">{t('FOOTER_COMPANY')}</h3>
+          <ul className="space-y-0.5 leading-snug">
             <li>DANCE UNITED SP. Z O.O.</li>
-            <li>ul. JOACHIMA LELEWELA 48</li>
-            <li>61-409 POZNAŃ</li>
+            <li>ul. ALEJA GRUNWALDZKA 225/---</li>
+            <li>80-266 GDAŃSK</li>
+            <li>POMORSKIE</li>
           </ul>
         </div>
 
         <div>
-          <h3 className="mb-4 font-bold text-amber-500 uppercase tracking-wider">{t('FOOTER_LEGAL')}</h3>
-          <ul className="space-y-2">
+          <h3 className="mb-2 font-semibold text-gold uppercase tracking-wider">{t('FOOTER_LEGAL')}</h3>
+          <ul className="space-y-0.5 leading-snug">
             <li>NIP: 7792455144</li>
             <li>KRS: 0000654614</li>
             <li>REGON: 365803012</li>
             <li>
-              <Link to="/terms" target="_blank" className="transition-colors hover:text-amber-400">
+              <Link to="/terms" target="_blank" className="transition-colors hover:text-gold">
                 {t('FOOTER_TERMS')}
               </Link>
             </li>
             <li>
-              <Link to="/privacy" target="_blank" className="transition-colors hover:text-amber-400">
+              <Link to="/privacy" target="_blank" className="transition-colors hover:text-gold">
                 {t('FOOTER_PRIVACY')}
               </Link>
             </li>
@@ -44,22 +45,22 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 font-bold text-amber-500 uppercase tracking-wider">{t('FOOTER_CONTACT')}</h3>
-          <ul className="space-y-2">
+          <h3 className="mb-2 font-semibold text-gold uppercase tracking-wider">{t('FOOTER_CONTACT')}</h3>
+          <ul className="space-y-0.5 leading-snug">
             <li>
-              <a href="mailto:info@danceunited.pl" className="transition-colors hover:text-amber-400">
+              <a href="mailto:info@danceunited.pl" className="transition-colors hover:text-gold">
                 info@danceunited.pl
               </a>
             </li>
             <li>
-              <a href="tel:797797078" className="transition-colors hover:text-amber-400">
+              <a href="tel:797797078" className="transition-colors hover:text-gold">
                 797 797 078
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <div className="mt-12 border-amber-900/10 border-t pt-8 text-center text-xs opacity-50">
+      <div className="mt-8 border-amber-900/10 border-t pt-6 text-center text-[11px] opacity-50">
         &copy; {new Date().getFullYear()} DANCE UNITED SP. Z O.O. {t('FOOTER_RIGHTS')}
       </div>
     </footer>

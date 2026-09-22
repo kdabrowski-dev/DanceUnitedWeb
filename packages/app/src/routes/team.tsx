@@ -3,6 +3,8 @@ import { ShinyText } from '../components/ui'
 import { trainers } from '../content/team'
 import { asset } from '../lib/asset'
 
+import { useTranslation } from '../contexts/LanguageContext'
+
 export function meta(_args: MetaArgs) {
   return [
     { title: 'Our Team - Dance United' },
@@ -11,15 +13,16 @@ export function meta(_args: MetaArgs) {
 }
 
 export default function Team() {
+  const { t } = useTranslation()
+
   return (
     <div className="container mx-auto px-4 pt-4 pb-12">
       <div className="mb-12 text-center">
         <ShinyText as="h1" variant="title" className="!block !w-full mb-4 text-center text-5xl">
-          Our Team
+          {t('TEAM_TITLE')}
         </ShinyText>
         <ShinyText as="p" variant="body" className="!block mx-auto max-w-2xl text-center text-gray-300 text-xl">
-          Our team is a group of enthusiasts, experienced dancers, and educators who share their knowledge with
-          commitment. Meet the people who will introduce you to the world of dance!
+          {t('TEAM_SUBTITLE')}
         </ShinyText>
       </div>
 

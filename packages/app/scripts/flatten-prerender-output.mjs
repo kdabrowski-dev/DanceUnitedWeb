@@ -36,4 +36,3 @@ function mergeUp(src, dest) {
 
 mergeUp(nestedDir, clientDir)
 fs.rmSync(nestedDir, { recursive: true, force: true })
-console.log(`Flattened prerendered output: build/client/${trimmed}/* -> build/client/`)
