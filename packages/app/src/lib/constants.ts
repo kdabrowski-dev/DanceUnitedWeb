@@ -13,7 +13,7 @@ export const ROUTES = {
 
 export const FONTS = {
   TITLE: '"Cinzel", serif',
-  BODY: '"Lora", Georgia, serif',
+  BODY: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
 } as const
 
 export const COLORS = {

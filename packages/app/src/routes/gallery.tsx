@@ -6,19 +6,14 @@ import { useLoaderData } from 'react-router'
 import { ShinyText } from '../components/ui'
 import { asset } from '../lib/asset'
 
+import { useTranslation } from '../contexts/LanguageContext'
+
 export function meta(_args: MetaArgs) {
   return [
     { title: 'Gallery - Dance United' },
     { name: 'description', content: 'Photos from classes, camps, tournaments, and the studio.' },
   ]
 }
-
-const categories = [
-  { id: 'camps', label: 'Camps & Courses' },
-  { id: 'classes', label: 'Classes' },
-  { id: 'tournaments', label: 'Tournaments' },
-  { id: 'studio', label: 'Studio' },
-]
 
 export const loader = async () => {
   const getImages = (category: string) => {
@@ -47,9 +42,17 @@ export const loader = async () => {
 }
 
 export default function Gallery() {
+  const { t } = useTranslation()
   const images = useLoaderData<typeof loader>()
   const [activeTab, setActiveTab] = useState('camps')
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null)
+
+  const categories = [
+    { id: 'camps', label: t('GALLERY_TAB_CAMPS') },
+    { id: 'classes', label: t('GALLERY_TAB_CLASSES') },
+    { id: 'tournaments', label: t('GALLERY_TAB_TOURNAMENTS') },
+    { id: 'studio', label: t('GALLERY_TAB_STUDIO') },
+  ]
 
   const currentImages = images[activeTab as keyof typeof images] || []
 
@@ -61,10 +64,10 @@ export default function Gallery() {
           variant="title"
           className="mb-4 block w-full font-bold font-cinzel text-4xl text-gold md:text-5xl"
         >
-          Gallery
+          {t('GALLERY_TITLE')}
         </ShinyText>
         <ShinyText as="p" variant="body" className="block w-full text-gray-300 text-xl">
-          Capturing the magic of dance, one moment at a time.
+          {t('GALLERY_SUBTITLE')}
         </ShinyText>
       </div>
 
@@ -75,7 +78,7 @@ export default function Gallery() {
             key={cat.id}
             type="button"
             onClick={() => setActiveTab(cat.id)}
-            className={`rounded-full border px-6 py-2 font-medium text-lg transition-all duration-300 ${
+            className={`cursor-pointer rounded-full border px-6 py-2 font-medium text-lg transition-all duration-300 ${
               activeTab === cat.id
                 ? 'border-gold bg-gold text-black shadow-[0_0_15px_rgba(212,175,55,0.5)]'
                 : 'border-gray-600 bg-transparent text-gray-400 hover:border-gold hover:text-gold'
@@ -104,7 +107,7 @@ export default function Gallery() {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute right-0 bottom-0 left-0 z-20 translate-y-full bg-gradient-to-t from-black/80 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
-                <p className="pointer-events-none font-medium text-lg text-white">Click to expand</p>
+                <p className="pointer-events-none font-medium text-lg text-white">{t('GALLERY_CLICK_EXPAND')}</p>
               </div>
             </div>
           ))}
@@ -112,7 +115,7 @@ export default function Gallery() {
       ) : (
         <div className="rounded-xl border border-gray-700 border-dashed bg-white/5 py-12">
           <ShinyText as="p" variant="body" className="text-gray-400 text-lg">
-            No photos in this category yet. Coming soon!
+            {t('GALLERY_EMPTY')}
           </ShinyText>
         </div>
       )}
@@ -120,11 +123,9 @@ export default function Gallery() {
       {/* Empty State / Call to Action */}
       <div className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
         <ShinyText as="h3" variant="title" className="mb-2 text-2xl text-gold">
-          Want to see more?
+          {t('GALLERY_MORE_TITLE')}
         </ShinyText>
-        <p className="text-gray-400">
-          Follow us on Instagram <span className="text-gold">@danceunitedgdansk</span> for daily updates and stories!
-        </p>
+        <p className="text-gray-400">{t('GALLERY_MORE_DESC')}</p>
       </div>
 
       {/* Lightbox / Modal */}

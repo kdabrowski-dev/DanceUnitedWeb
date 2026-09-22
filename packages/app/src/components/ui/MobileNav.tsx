@@ -11,7 +11,6 @@ export function MobileNav() {
   const toggle = () => setIsOpen(!isOpen)
 
   const menuItems = [
-    { label: t('NAV_ABOUT_US'), href: '/about' },
     { label: t('NAV_TEAM'), href: '/team' },
     { label: t('NAV_PRICING'), href: '/pricing' },
     { label: t('NAV_SCHEDULE'), href: '/schedule' },
@@ -20,11 +19,11 @@ export function MobileNav() {
   ]
 
   return (
-    <div className="xl:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         onClick={toggle}
-        className="relative z-50 rounded-full border border-amber-500/20 bg-gray-900/50 p-2 text-amber-400 transition-colors hover:bg-amber-500/10 hover:text-amber-300"
+        className="relative z-50 cursor-pointer rounded-full border border-amber-500/20 bg-gray-900/50 p-2 text-amber-400 transition-colors hover:bg-amber-500/10 hover:text-amber-300"
         aria-label="Toggle Menu"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -40,21 +39,26 @@ export function MobileNav() {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 z-40 h-full w-64 transform border-amber-900/30 border-l bg-gray-950 px-6 py-12 shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-40 h-full w-72 transform border-amber-900/30 border-l bg-gray-950 px-8 py-16 shadow-2xl transition-transform duration-300 ease-in-out sm:w-80 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Main Menu Links */}
-        <div className="flex flex-col gap-6">
-          {menuItems.map((item) => (
-            <Link key={item.href} to={item.href} onClick={toggle}>
-              <ShinyText
-                variant="body"
-                className="block text-xl uppercase tracking-wider transition-colors hover:text-gold"
-              >
-                {item.label}
-              </ShinyText>
-            </Link>
+        <div className="flex flex-col">
+          {menuItems.map((item, index) => (
+            <div key={item.href} className="w-full">
+              <Link to={item.href} onClick={toggle} className="block py-4">
+                <ShinyText
+                  variant="body"
+                  className="block font-medium text-2xl uppercase tracking-wider transition-colors hover:text-gold"
+                >
+                  {item.label}
+                </ShinyText>
+              </Link>
+              {index < menuItems.length - 1 && (
+                <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+              )}
+            </div>
           ))}
         </div>
       </div>

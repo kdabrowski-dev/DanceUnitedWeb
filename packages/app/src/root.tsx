@@ -17,8 +17,13 @@ export const links: Route.LinksFunction = () => [
     crossOrigin: 'anonymous',
   },
   {
+    rel: 'preload',
+    as: 'style',
+    href: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap',
+  },
+  {
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap',
+    href: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap',
   },
 ]
 
@@ -54,67 +59,62 @@ function AppContent() {
   return (
     <div className="flex min-h-screen flex-col bg-gray-950">
       <header className="relative z-50 flex-none border-amber-900/20 border-b bg-gray-950">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex min-w-0 items-center gap-3 xl:gap-6">
-            <Link to="/" className="flex shrink-0 items-center gap-2 xl:gap-3">
-              <img src={asset('/logos/logo-transparent.webp')} alt="Dance United" className="h-11 w-auto xl:h-14" />
-              <ShinyText as="span" variant="title" className="shrink-0 whitespace-nowrap text-lg xl:text-2xl">
-                {t('BRAND_NAME')}
+        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <Link to="/" className="flex shrink-0 items-center gap-2 xl:gap-3">
+            <img src={asset('/logos/logo-transparent.webp')} alt="Dance United" className="h-11 w-auto xl:h-14" />
+            <ShinyText as="span" variant="title" className="shrink-0 whitespace-nowrap text-lg xl:text-2xl">
+              {t('BRAND_NAME')}
+            </ShinyText>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="mx-4 hidden max-w-2xl flex-1 items-center justify-evenly lg:flex xl:mx-8">
+            <Link to="/team" className="px-3.5 py-2 transition-transform duration-200 hover:scale-105">
+              <ShinyText
+                variant="body"
+                className="whitespace-nowrap font-medium text-base uppercase tracking-wider transition-colors hover:text-gold xl:text-lg"
+              >
+                {t('NAV_TEAM')}
               </ShinyText>
             </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden shrink-0 items-center gap-3 xl:flex 2xl:gap-5">
-              <Link to="/about" className="shrink-0">
-                <ShinyText
-                  variant="body"
-                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                >
-                  {t('NAV_ABOUT_US')}
-                </ShinyText>
-              </Link>
-              <Link to="/team" className="shrink-0">
-                <ShinyText
-                  variant="body"
-                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                >
-                  {t('NAV_TEAM')}
-                </ShinyText>
-              </Link>
-              <Link to="/pricing" className="shrink-0">
-                <ShinyText
-                  variant="body"
-                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                >
-                  {t('NAV_PRICING')}
-                </ShinyText>
-              </Link>
-              <Link to="/schedule" className="shrink-0">
-                <ShinyText
-                  variant="body"
-                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                >
-                  {t('NAV_SCHEDULE')}
-                </ShinyText>
-              </Link>
-              <Link to="/contact" className="shrink-0">
-                <ShinyText
-                  variant="body"
-                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                >
-                  {t('NAV_CONTACT')}
-                </ShinyText>
-              </Link>
-              <Link to="/gallery" className="shrink-0">
-                <ShinyText
-                  variant="body"
-                  className="whitespace-nowrap text-sm uppercase tracking-wide transition-colors hover:text-gold 2xl:text-base"
-                >
-                  {t('NAV_GALLERY')}
-                </ShinyText>
-              </Link>
-            </div>
+            <div className="h-7 w-[1px] bg-gradient-to-b from-transparent via-amber-400/50 to-transparent" />
+            <Link to="/pricing" className="px-3.5 py-2 transition-transform duration-200 hover:scale-105">
+              <ShinyText
+                variant="body"
+                className="whitespace-nowrap font-medium text-base uppercase tracking-wider transition-colors hover:text-gold xl:text-lg"
+              >
+                {t('NAV_PRICING')}
+              </ShinyText>
+            </Link>
+            <div className="h-7 w-[1px] bg-gradient-to-b from-transparent via-amber-400/50 to-transparent" />
+            <Link to="/schedule" className="px-3.5 py-2 transition-transform duration-200 hover:scale-105">
+              <ShinyText
+                variant="body"
+                className="whitespace-nowrap font-medium text-base uppercase tracking-wider transition-colors hover:text-gold xl:text-lg"
+              >
+                {t('NAV_SCHEDULE')}
+              </ShinyText>
+            </Link>
+            <div className="h-7 w-[1px] bg-gradient-to-b from-transparent via-amber-400/50 to-transparent" />
+            <Link to="/contact" className="px-3.5 py-2 transition-transform duration-200 hover:scale-105">
+              <ShinyText
+                variant="body"
+                className="whitespace-nowrap font-medium text-base uppercase tracking-wider transition-colors hover:text-gold xl:text-lg"
+              >
+                {t('NAV_CONTACT')}
+              </ShinyText>
+            </Link>
+            <div className="h-7 w-[1px] bg-gradient-to-b from-transparent via-amber-400/50 to-transparent" />
+            <Link to="/gallery" className="px-3.5 py-2 transition-transform duration-200 hover:scale-105">
+              <ShinyText
+                variant="body"
+                className="whitespace-nowrap font-medium text-base uppercase tracking-wider transition-colors hover:text-gold xl:text-lg"
+              >
+                {t('NAV_GALLERY')}
+              </ShinyText>
+            </Link>
           </div>
+
           <div className="flex shrink-0 items-center gap-2 xl:gap-3">
             <LanguageSwitcher />
             <MobileNav />

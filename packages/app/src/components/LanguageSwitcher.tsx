@@ -37,7 +37,7 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-gray-900/50 px-3 py-1.5 font-medium text-amber-100 text-xs transition-all hover:bg-amber-500/10 active:scale-95"
+        className="flex cursor-pointer items-center gap-2 rounded-full border border-amber-500/20 bg-gray-900/50 px-3 py-1.5 font-medium text-amber-100 text-xs transition-all hover:bg-amber-500/10 active:scale-95"
         title="Switch Language"
       >
         <Globe className="h-3.5 w-3.5 text-amber-400" />
@@ -55,7 +55,7 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
               key={lang.code}
               type="button"
               onClick={() => handleSelect(lang.code)}
-              className={`flex w-full items-center justify-between px-4 py-2 text-left text-sm transition-colors hover:bg-amber-900/20 ${
+              className={`flex w-full cursor-pointer items-center justify-between px-4 py-2 text-left text-sm transition-colors hover:bg-amber-900/20 ${
                 language === lang.code ? 'bg-amber-500/10 text-amber-400' : 'text-gray-300 hover:text-amber-100'
               }`}
             >

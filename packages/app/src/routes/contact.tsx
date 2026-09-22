@@ -1,5 +1,6 @@
 import type { MetaArgs } from 'react-router'
 import { ShinyText } from '../components/ui'
+import { useTranslation } from '../contexts/LanguageContext'
 
 export function meta(_args: MetaArgs) {
   return [
@@ -9,12 +10,14 @@ export function meta(_args: MetaArgs) {
 }
 
 export default function Contact() {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       {/* Hero / Contact Details Section */}
       <section className="container mx-auto px-4 py-16 text-center">
         <ShinyText as="h1" variant="title" className="mb-12 text-5xl">
-          Contact Us
+          {t('CONTACT_TITLE')}
         </ShinyText>
 
         <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
@@ -36,10 +39,10 @@ export default function Contact() {
               </svg>
             </div>
             <ShinyText as="h3" variant="title" className="mb-2 text-2xl">
-              Phone
+              {t('CONTACT_PHONE')}
             </ShinyText>
             <br />
-            <a href="tel:+48 797 797 078" className="text-gray-300 text-lg transition-colors hover:text-gold">
+            <a href="tel:+48797797078" className="text-gray-300 text-lg transition-colors hover:text-gold">
               +48 797 797 078
             </a>
           </div>
@@ -63,7 +66,7 @@ export default function Contact() {
               </svg>
             </div>
             <ShinyText as="h3" variant="title" className="mb-2 text-2xl">
-              Email
+              {t('CONTACT_EMAIL')}
             </ShinyText>
             <br />
             <a href="mailto:info@danceunited.pl" className="text-gray-300 text-lg transition-colors hover:text-gold">
@@ -91,22 +94,22 @@ export default function Contact() {
               </svg>
             </div>
             <ShinyText as="h3" variant="title" className="mb-2 text-2xl">
-              Accessibility
+              {t('CONTACT_ACCESSIBILITY')}
             </ShinyText>
             <p className="text-gray-300 text-lg">
-              Wheelchair accessible entrance.
+              {t('CONTACT_ACCESSIBILITY_DESC_1')}
               <br />
-              Free parking available.
+              {t('CONTACT_ACCESSIBILITY_DESC_2')}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Location & Socials Section (Replicated from About) */}
+      {/* Location & Socials Section */}
       <section className="border-amber-900/20 border-t bg-black px-4 py-16">
         <div className="container mx-auto">
           <ShinyText as="h2" variant="title" className="mb-12 text-center text-4xl">
-            Visit Us
+            {t('CONTACT_VISIT_US')}
           </ShinyText>
 
           <div className="grid gap-8 lg:grid-cols-2">
@@ -129,19 +132,17 @@ export default function Contact() {
             <div className="flex h-[400px] flex-col justify-center space-y-6 rounded-xl border border-amber-900/20 bg-gray-900/40 p-10 text-left backdrop-blur-sm">
               <div>
                 <ShinyText as="h3" variant="title" className="mb-4 font-cinzel font-semibold text-3xl text-gold">
-                  Address
+                  {t('CONTACT_ADDRESS_TITLE')}
                 </ShinyText>
                 <div className="space-y-2">
                   <ShinyText as="p" variant="body" className="font-medium text-gray-200 text-xl">
-                    aleja Grunwaldzka 225
+                    ul. ALEJA GRUNWALDZKA 225/---
                   </ShinyText>
-                  <br />
                   <ShinyText as="p" variant="body" className="text-gray-400 text-lg">
-                    80-266 Gdańsk
+                    80-266 GDAŃSK
                   </ShinyText>
-                  <br />
                   <ShinyText as="p" variant="body" className="text-gray-400 text-lg">
-                    Poland
+                    POMORSKIE
                   </ShinyText>
                 </div>
               </div>
@@ -151,7 +152,7 @@ export default function Contact() {
 
               <div>
                 <ShinyText as="h3" variant="title" className="mb-4 font-cinzel font-semibold text-3xl text-gold">
-                  Follow Us
+                  {t('CONTACT_FOLLOW_US')}
                 </ShinyText>
                 <div className="flex gap-6">
                   <a
